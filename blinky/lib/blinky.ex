@@ -17,6 +17,7 @@ defmodule Blinky do
     led_list = Application.get_env(:blinky, :led_list)
     Logger.debug("list of leds to blink is #{inspect(led_list)}")
     spawn(fn -> blink_list_forever(led_list) end)
+    spawn(fn -> logger("hola mundo") end)
     {:ok, self()}
   end
 
@@ -24,6 +25,12 @@ defmodule Blinky do
   defp blink_list_forever(led_list) do
     Enum.each(led_list, &blink(&1))
     blink_list_forever(led_list)
+  end
+
+  defp logger(msg) do
+    IO.puts(msg)
+    :timer.sleep(650)
+    logger(msg)
   end
 
   # given an led key, turn it on for @on_duration then back off
