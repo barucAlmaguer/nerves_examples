@@ -17,7 +17,8 @@ defmodule Blinky do
     led_list = Application.get_env(:blinky, :led_list)
     Logger.debug("list of leds to blink is #{inspect(led_list)}")
     spawn(fn -> blink_list_forever(led_list) end)
-    spawn(fn -> logger("loggeando, conteo", 50) end)
+    spawn(fn -> logger("loggeando, conteo", 150) end)
+    spawn(fn -> logger("loggeando, conteo", 300) end)
     {:ok, self()}
   end
 
@@ -31,6 +32,9 @@ defmodule Blinky do
     IO.puts("#{msg} = #{count}")
     :timer.sleep(650)
     case count do
+      200 ->
+        IO.puts("Done logging ERRORRR")
+        IO.puts({})
       0 ->
         IO.puts("Done logging... byebye")
       _ ->
